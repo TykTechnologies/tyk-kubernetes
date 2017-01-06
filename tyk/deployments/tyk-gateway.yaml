@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tyk-gateway
+  namespace: kube-tyk
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tyk-gateway
+    spec:
+      containers:
+      - image: tykio/tyk-gateway:latest
+        imagePullPolicy: Always
+        name: tyk-gateway
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+          - name: tyk-gateway-apps
+            mountPath: /apps
+      volumes:
+        - name: tyk-gateway-apps
+          gcePersistentDisk:
+            pdName: gke-tyk-gateway
+            fsType: ext4
+        - name: tyk-conf
+          secret:
+            secretName: tyk-conf
