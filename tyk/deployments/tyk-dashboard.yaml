@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tyk-dashboard
+  namespace: tyk
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tyk-dashboard
+    spec:
+      containers:
+      - image: tykio/tyk-dashboard:latest
+        imagePullPolicy: Always
+        name: tyk-dashboard
+        ports:
+        - containerPort: 3000
+      volumes:
+        - name: tyk-dashboard-volume
+          gcePersistentDisk:
+            pdName: tyk-dashboard
+            fsType: ext4
