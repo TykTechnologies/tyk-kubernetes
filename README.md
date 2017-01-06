@@ -118,3 +118,6 @@ Initialize the Tyk namespace and deployment:
 $ kubectl create -f namespaces
 $ kubectl create -f deployments
 ```
+
+## Dashboard setup
+
