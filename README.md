@@ -4,8 +4,8 @@ This guide will walk you through a Kubernetes-based Tyk setup. It also covers th
 
 # Requirements
 
-- Google Cloud Platform project and credentials, see the ["Creating a project via the Cloud Platform Console" section](https://cloud.google.com/resource-manager/docs/creating-project).
-- Google Cloud Platform CLI tool, download [here](https://cloud.google.com/sdk/).
+- A fresh Google Cloud Platform project and credentials, see the ["Creating a project via the Cloud Platform Console" section](https://cloud.google.com/resource-manager/docs/creating-project).
+- The Google Cloud Platform CLI tool, download [here](https://cloud.google.com/sdk/).
 
 # Getting Started
 
