@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tyk-gateway
-  namespace: kube-tyk
+  namespace: tyk
 spec:
   ports:
   - port: 80
