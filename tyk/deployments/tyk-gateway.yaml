@@ -19,6 +19,11 @@ spec:
         volumeMounts:
           - name: tyk-gateway-apps
             mountPath: /apps
+          - name: tyk-gateway-conf
+            mountPath: /tyk-gateway-conf
+        workingDir: /opt/tyk-gateway
+        command:
+          - ./entrypoint.sh
       volumes:
         - name: tyk-gateway-apps
           gcePersistentDisk:
