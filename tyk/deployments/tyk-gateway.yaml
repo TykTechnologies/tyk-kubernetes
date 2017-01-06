@@ -14,16 +14,16 @@ spec:
       - image: tykio/tyk-gateway:latest
         imagePullPolicy: Always
         name: tyk-gateway
+        env:
+          - name: TYK_GW_STORAGE_HOST
+            value: redis-1.default.svc.cluster.local
         ports:
         - containerPort: 8080
         volumeMounts:
           - name: tyk-gateway-apps
             mountPath: /apps
           - name: tyk-gateway-conf
-            mountPath: /tyk-gateway-conf
-        workingDir: /opt/tyk-gateway
-        command:
-          - ./entrypoint.sh
+            mountPath: /etc/tyk-gateway
       volumes:
         - name: tyk-gateway-apps
           gcePersistentDisk:
