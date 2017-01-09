@@ -106,17 +106,22 @@ Create a volume for the gateway:
 $ gcloud compute disks create --size=10GB tyk-gateway
 ```
 
+Initialize the Tyk namespace:
+
+```
+$ kubectl create -f namespaces/
+```
+
 Create config map for `tyk.conf`:
 
 ```
 $ kubectl create configmap tyk-gateway-conf --from-file=tyk.conf --namespace=tyk
 ```
 
-Initialize the Tyk namespace and deployment:
+Initialize the deployment:
 
 ```
-$ kubectl create -f namespaces
-$ kubectl create -f deployments
+$ kubectl create -f deployments/tyk-gateway.yaml --namespace=tyk
 ```
 
 ## Dashboard setup
