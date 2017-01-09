@@ -90,6 +90,10 @@ $ redis-trib.py replicate --master-addr `dig +short redis-2.default.svc.cluster.
 $ redis-trib.py replicate --master-addr `dig +short redis-3.default.svc.cluster.local`:6379 --slave-addr `dig +short redis-6.default.svc.cluster.local`:6379
 ```
 
+# MongoDB setup
+
+
+
 # Tyk setup
 
 ## Gateway setup

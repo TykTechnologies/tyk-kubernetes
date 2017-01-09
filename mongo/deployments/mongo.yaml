@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mongodb
+  namespace: mongo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - image: mongo:latest
+        imagePullPolicy: Always
+        name: mongo
+        command: ["mongod", "--smallfiles"]
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+          - name: mongo-volume
+            mountPath: /data/db
+      volumes:
+        - name: mongo-volume
+          gcePersistentDisk:
+            pdName: mongo-volume
+            fsType: ext4
