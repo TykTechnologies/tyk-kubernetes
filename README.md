@@ -112,17 +112,36 @@ Initialize the Tyk namespace:
 $ kubectl create -f namespaces/
 ```
 
-Create config map for `tyk.conf`:
+Create a config map for `tyk.conf`:
 
 ```
 $ kubectl create configmap tyk-gateway-conf --from-file=tyk.conf --namespace=tyk
 ```
 
-Initialize the deployment:
+Initialize the deployment and service:
 
 ```
-$ kubectl create -f deployments/tyk-gateway.yaml --namespace=tyk
+$ kubectl create -f deployments/tyk-gateway.yaml
+$ kubectl create -f services/tyk-gateway.yaml
 ```
 
 ## Dashboard setup
 
+Create a volume for the dashboard:
+
+```
+$ gcloud compute disks create --size=10GB tyk-dashboard
+```
+
+Create a config map for `tyk_analytics.conf`:
+
+```
+$ kubectl create configmap tyk-analytics-conf --from-file=tyk_analytics.conf --namespace=tyk
+```
+
+Initialize the deployment and service:
+
+```
+$ kubectl create -f deployments/tyk-dashboard.yaml
+$ kubectl create -f services/tyk-dashboard.yaml
+```
