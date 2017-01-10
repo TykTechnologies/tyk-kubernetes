@@ -10,3 +10,4 @@ spec:
     protocol: TCP
   selector:
     app: tyk-dashboard
+  type: LoadBalancer
