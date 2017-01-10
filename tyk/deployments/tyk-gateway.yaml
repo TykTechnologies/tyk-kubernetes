@@ -15,10 +15,8 @@ spec:
         imagePullPolicy: Always
         name: tyk-gateway
         env:
-          - name: _TYK_GW_STORAGE_HOST
-            value: redis-1.default.svc.cluster.local
-          - name: _TYK_GW_STORAGE_HOSTS
-            value: "redis-1.default.svc.cluster.local:6379,redis-4.default.svc.cluster.local:6379,redis-2.default.svc.cluster.local:6379,redis-5.default.svc.cluster.local:6379,redis-3.default.svc.cluster.local:6379,redis-6.default.svc.cluster.local:6379"
+          - name: REDIGOCLUSTER_SHARDCOUNT
+            value: 100
         command: ["/opt/tyk-gateway/tyk", "--conf=/etc/tyk-gateway/tyk.conf"]
         workingDir: /opt/tyk-gateway
         ports:
