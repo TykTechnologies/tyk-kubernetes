@@ -19,10 +19,10 @@ $ cd tyk-kubernetes
 
 # Redis setup
 
-Enter the `redis-cluster` directory:
+Enter the `redis` directory:
 
 ```
-$ cd redis-cluster
+$ cd redis
 ```
 
 First we will create the disks for our Redis instances:
