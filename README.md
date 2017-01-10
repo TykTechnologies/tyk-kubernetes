@@ -213,3 +213,30 @@ Initialize the pump deployment:
 ```
 $ kubectl create -f deployments/tyk-pump.yaml
 ```
+
+# FAQ
+
+## Which services does this setup exposes?
+
+The `tyk-gateway` and `tyk-dashboard` services are publicly exposed, using load balanced IPs provisioned by Google Cloud Platform. See the `type` key in `tyk/services/tyk-dashboard.yaml` and `tyk/services/tyk-gateway.yaml`. For more advanced setups you may check [this guide](https://cloud.google.com/container-engine/docs/tutorials/http-balancer).
+
+## How do I check the Tyk logs?
+
+To check the logs you must specify a specifid pod name, first list the pods available under the `tyk` namespace:
+
+```
+$ kubectl get pod --namespace=tyk
+NAME                             READY     STATUS    RESTARTS   AGE
+tyk-dashboard-1616536863-zmpwb   1/1       Running   0          8m
+...
+```
+
+Then request the logs:
+
+```
+$ kubectl logs tyk-dashboard-1616536863-zmpwb
+```
+
+## How do I update the Tyk configuration?
+
+You must replace the Tyk [config maps](http://kubernetes.io/docs/user-guide/configmap/) and recreate or restart the Tyk services.
