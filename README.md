@@ -222,7 +222,7 @@ The `tyk-gateway` and `tyk-dashboard` services are publicly exposed, using load 
 
 ## How do I check the Tyk logs?
 
-To check the logs you must specify a specifid pod name, first list the pods available under the `tyk` namespace:
+To check the logs you must use a specific pod name, first list the pods available under the `tyk` namespace:
 
 ```
 $ kubectl get pod --namespace=tyk
