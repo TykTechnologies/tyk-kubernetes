@@ -169,7 +169,7 @@ The output will look like this:
 
 ```
 NAME            CLUSTER-IP       EXTERNAL-IP       PORT(S)          AGE
-tyk-dashboard   10.127.248.206   x.x.x.x   3000:30930/TCP   45s
+tyk-dashboard   10.127.248.206   x.x.x.x           3000:30930/TCP   45s
 ```
 
 `EXTERNAL-IP` represents a public IP address allocated for the dashboard service, you may try accessing the dashboard using this IP, the final URL will look like: 
@@ -216,7 +216,7 @@ $ kubectl create -f deployments/tyk-pump.yaml
 
 # FAQ
 
-## Which services does this setup exposes?
+## Which services does this setup expose?
 
 The `tyk-gateway` and `tyk-dashboard` services are publicly exposed, using load balanced IPs provisioned by Google Cloud Platform. See the `type` key in `tyk/services/tyk-dashboard.yaml` and `tyk/services/tyk-gateway.yaml`. For more advanced setups you may check [this guide](https://cloud.google.com/container-engine/docs/tutorials/http-balancer).
 
