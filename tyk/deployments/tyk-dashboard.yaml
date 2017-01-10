@@ -14,10 +14,21 @@ spec:
       - image: tykio/tyk-dashboard:latest
         imagePullPolicy: Always
         name: tyk-dashboard
+        command: ["/opt/tyk-dashboard/tyk-analytics", "--conf=/etc/tyk-dashboard/tyk_analytics.conf"]
+        workingDir: /opt/tyk-dashboard
         ports:
         - containerPort: 3000
+        volumeMounts:
+          - name: tyk-dashboard-conf
+            mountPath: /etc/tyk-dashboard
       volumes:
         - name: tyk-dashboard-volume
           gcePersistentDisk:
             pdName: tyk-dashboard
             fsType: ext4
+        - name: tyk-dashboard-conf
+          configMap:
+            name: tyk-dashboard-conf
+            items:
+              - key: tyk_analytics.conf
+                path: tyk_analytics.conf
