@@ -25,7 +25,13 @@ Enter the `redis` directory:
 $ cd redis
 ```
 
-First we will create the disks for our Redis instances:
+Initialize the `redis` namespace:
+
+```
+$ kubectl create -f namespaces
+```
+
+We will create the disks for our Redis instances:
 
 ```
 $ gcloud compute disks create --size=10GB \
@@ -36,7 +42,7 @@ $ gcloud compute disks create --size=10GB \
 Then we import the Redis configuration:
 
 ```
-$ kubectl create configmap redis-conf --from-file=redis.conf
+$ kubectl create configmap redis-conf --from-file=redis.conf --namespace=redis
 ```
 
 And initialize the [replica sets](http://kubernetes.io/docs/user-guide/replicasets/) and its pods:
@@ -75,9 +81,9 @@ $ pip install redis-trib
 To configure three masters we use the following command, from the [redis-trib.py](https://github.com/HunanTV/redis-trib.py) tool:
 
 ```
-$ redis-trib.py create `dig +short redis-1.default.svc.cluster.local`:6379 \
-    `dig +short redis-2.default.svc.cluster.local`:6379 \
-    `dig +short redis-3.default.svc.cluster.local`:6379
+$ redis-trib.py create `dig +short redis-1.redis.svc.cluster.local`:6379 \
+    `dig +short redis-2.redis.svc.cluster.local`:6379 \
+    `dig +short redis-3.redis.svc.cluster.local`:6379
 ```
 
 Each argument will become the resolved service IP plus the port.
@@ -85,9 +91,9 @@ Each argument will become the resolved service IP plus the port.
 To set a slave for each master we use:
 
 ```
-$ redis-trib.py replicate --master-addr `dig +short redis-1.default.svc.cluster.local`:6379 --slave-addr `dig +short redis-4.default.svc.cluster.local`:6379
-$ redis-trib.py replicate --master-addr `dig +short redis-2.default.svc.cluster.local`:6379 --slave-addr `dig +short redis-5.default.svc.cluster.local`:6379
-$ redis-trib.py replicate --master-addr `dig +short redis-3.default.svc.cluster.local`:6379 --slave-addr `dig +short redis-6.default.svc.cluster.local`:6379
+$ redis-trib.py replicate --master-addr `dig +short redis-1.redis.svc.cluster.local`:6379 --slave-addr `dig +short redis-4.redis.svc.cluster.local`:6379
+$ redis-trib.py replicate --master-addr `dig +short redis-2.redis.svc.cluster.local`:6379 --slave-addr `dig +short redis-5.redis.svc.cluster.local`:6379
+$ redis-trib.py replicate --master-addr `dig +short redis-3.redis.svc.cluster.local`:6379 --slave-addr `dig +short redis-6.redis.svc.cluster.local`:6379
 ```
 
 # MongoDB setup

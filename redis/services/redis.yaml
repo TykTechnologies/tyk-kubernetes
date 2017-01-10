@@ -2,6 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: "redis"
+  namespace: redis
 spec:
   selector:
     app: "redis"

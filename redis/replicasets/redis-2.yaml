@@ -2,6 +2,7 @@ apiVersion: extensions/v1beta1
 kind: ReplicaSet
 metadata:
   name: "redis-2"
+  namespace: redis
 spec:
   replicas: 1
   template:
