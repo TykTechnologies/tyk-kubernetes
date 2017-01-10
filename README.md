@@ -92,7 +92,30 @@ $ redis-trib.py replicate --master-addr `dig +short redis-3.default.svc.cluster.
 
 # MongoDB setup
 
+Enter the `mongo` directory:
 
+```
+$ cd ~/tyk-kubernetes/mongo
+```
+
+Create a volume for MongoDB:
+
+```
+$ gcloud compute disks create --size=10GB mongo-volume
+```
+
+Initialize the Mongo namespace:
+
+```
+$ kubectl create -f namespaces
+```
+
+Initialize the deployment and service:
+
+```
+$ kubectl create -f deployments
+$ kubectl create -f services
+```
 
 # Tyk setup
 
