@@ -119,24 +119,73 @@ $ kubectl create -f services
 
 # Tyk setup
 
-## Gateway setup
-
 Enter the `tyk` directory:
 
 ```
 $ cd ~/tyk-kubernetes/tyk
 ```
 
-Create a volume for the gateway:
-
-```
-$ gcloud compute disks create --size=10GB tyk-gateway
-```
-
 Initialize the Tyk namespace:
 
 ```
 $ kubectl create -f namespaces
+```
+
+## Dashboard setup
+
+Create a volume for the dashboard:
+
+```
+$ gcloud compute disks create --size=10GB tyk-dashboard
+```
+
+Set your license key in `tyk_analytics.conf`:
+
+```json
+    "mongo_url": "mongodb://mongodb.mongo.svc.cluster.local:27017/tyk_analytics",
+    "license_key": "LICENSEKEY",
+```
+
+Then create a config map for this file:
+
+```
+$ kubectl create configmap tyk-dashboard-conf --from-file=tyk_analytics.conf --namespace=tyk
+```
+
+Initialize the deployment and service:
+
+```
+$ kubectl create -f deployments/tyk-dashboard.yaml
+$ kubectl create -f services/tyk-dashboard.yaml
+```
+
+Check if the dashboard has been exposed:
+
+```
+$ kubectl get service tyk-dashboard --namespace=tyk
+```
+
+The output will look like this:
+
+```
+NAME            CLUSTER-IP       EXTERNAL-IP       PORT(S)          AGE
+tyk-dashboard   10.127.248.206   x.x.x.x   3000:30930/TCP   45s
+```
+
+`EXTERNAL-IP` represents a public IP address allocated for the dashboard service, you may try accessing the dashboard using this IP, the final URL will look like: 
+
+```
+http://x.x.x.x:3000/
+```
+
+At this point we should bootstrap the dashboard.
+
+## Gateway setup
+
+Create a volume for the gateway:
+
+```
+$ gcloud compute disks create --size=10GB tyk-gateway
 ```
 
 Create a config map for `tyk.conf`:
@@ -150,32 +199,4 @@ Initialize the deployment and service:
 ```
 $ kubectl create -f deployments/tyk-gateway.yaml
 $ kubectl create -f services/tyk-gateway.yaml
-```
-
-## Dashboard setup
-
-Create a volume for the dashboard:
-
-```
-$ gcloud compute disks create --size=10GB tyk-dashboard
-```
-
-Create a config map for `tyk_analytics.conf`:
-
-```
-$ kubectl create configmap tyk-dashboard-conf --from-file=tyk_analytics.conf --namespace=tyk
-```
-
-Initialize the deployment and service:
-
-```
-$ kubectl create -f deployments/tyk-dashboard.yaml
-$ kubectl create -f services/tyk-dashboard.yaml
-```
-
-Exposing dashboard:
-
-```
-$ kubectl expose deployment tyk-dashboard --type="LoadBalancer" --namespace=tyk
-$ kubectl get service tyk-dashboard --namespace=tyk
 ```
