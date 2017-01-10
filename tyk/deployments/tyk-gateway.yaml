@@ -16,7 +16,7 @@ spec:
         name: tyk-gateway
         env:
           - name: REDIGOCLUSTER_SHARDCOUNT
-            value: 100
+            value: "100"
         command: ["/opt/tyk-gateway/tyk", "--conf=/etc/tyk-gateway/tyk.conf"]
         workingDir: /opt/tyk-gateway
         ports:
