@@ -200,3 +200,16 @@ Initialize the deployment and service:
 $ kubectl create -f deployments/tyk-gateway.yaml
 $ kubectl create -f services/tyk-gateway.yaml
 ```
+
+## Pump setup
+
+Create a config map for `pump.conf`:
+
+```
+$ kubectl create configmap tyk-pump-conf --from-file=pump.conf --namespace=tyk
+```
+Initialize the pump deployment:
+
+```
+$ kubectl create -f deployments/tyk-pump.yaml
+```
