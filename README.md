@@ -1,6 +1,6 @@
 # Tyk + Kubernetes integration
 
-This guide will walk you through a Kubernetes-based Tyk setup. It also covers the required steps to configure and use a Redis cluster.
+This guide will walk you through a Kubernetes-based Tyk setup. It also covers the required steps to configure and use a Redis cluster and a MongoDB instance.
 
 # Requirements
 
