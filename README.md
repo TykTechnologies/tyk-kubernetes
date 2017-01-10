@@ -104,16 +104,16 @@ Enter the `mongo` directory:
 $ cd ~/tyk-kubernetes/mongo
 ```
 
-Create a volume for MongoDB:
-
-```
-$ gcloud compute disks create --size=10GB mongo-volume
-```
-
 Initialize the Mongo namespace:
 
 ```
 $ kubectl create -f namespaces
+```
+
+Create a volume for MongoDB:
+
+```
+$ gcloud compute disks create --size=10GB mongo-volume
 ```
 
 Initialize the deployment and service:
@@ -184,7 +184,33 @@ tyk-dashboard   10.127.248.206   x.x.x.x           3000:30930/TCP   45s
 http://x.x.x.x:3000/
 ```
 
-At this point we should bootstrap the dashboard.
+At this point we should bootstrap the dashboard, we need to locate the pod that's running the dashboard:
+
+```
+$ kubectl get pod --namespace=tyk
+NAME                             READY     STATUS    RESTARTS   AGE
+tyk-dashboard-1616536863-oeqa2   1/1       Running   0          2m
+```
+
+Then we run the bootstrap script, using the pod name:
+
+```
+$ kubectl exec --namespace=tyk tyk-dashboard-1616536863-oeqa2 /opt/tyk-dashboard/install/bootstrap.sh x.x.x.x
+```
+
+Remember to use the `EXTERNAL-IP` that shows up in the previous step, instead of `x.x.x.x`.
+
+The bootstrap script will report the initial credentials:
+
+```
+DONE
+====
+Login at http://x.x.x.x:3000/
+User: test@test.com
+Pass: test123
+```
+
+You should be able to access the dashboard now.
 
 ## Gateway setup
 
