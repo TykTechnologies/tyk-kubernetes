@@ -14,6 +14,9 @@ spec:
       - image: tykio/tyk-dashboard:latest
         imagePullPolicy: Always
         name: tyk-dashboard
+        env:
+          - name: REDIGOCLUSTER_SHARDCOUNT
+            value: "128"
         command: ["/opt/tyk-dashboard/tyk-analytics", "--conf=/etc/tyk-dashboard/tyk_analytics.conf"]
         workingDir: /opt/tyk-dashboard
         ports:
