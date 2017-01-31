@@ -15,6 +15,9 @@ spec:
         imagePullPolicy: Always
         name: tyk-pump
         workingDir: "/opt/tyk-pump"
+        env:
+          - name: REDIGOCLUSTER_SHARDCOUNT
+            value: "128"
         command: ["/opt/tyk-pump/tyk-pump", "--c=/etc/tyk-pump/pump.conf"]
         volumeMounts:
           - name: tyk-pump-conf
