@@ -14,7 +14,7 @@ spec:
       - image: mongo:latest
         imagePullPolicy: Always
         name: mongo
-        command: ["mongod", "--smallfiles"]
+        command: ["mongod", "--bind_ip_all", "--smallfiles"]
         ports:
         - containerPort: 27017
         volumeMounts:
