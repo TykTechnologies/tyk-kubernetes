@@ -75,7 +75,7 @@ To install the tools required to configure the cluster, run:
 ```
 $ apt-get update
 $ apt-get install -y python2.7 python-pip redis-tools dnsutils
-$ pip install redis-trib
+$ pip install redis-trib==0.5.1
 ```
 
 To configure three masters we use the following command, from the [redis-trib.py](https://github.com/HunanTV/redis-trib.py) tool:
