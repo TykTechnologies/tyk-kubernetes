@@ -18,7 +18,7 @@ spec:
         env:
           - name: REDIGOCLUSTER_SHARDCOUNT
             value: "128"
-        command: ["/opt/tyk-pump/tyk-pump", "--c=/etc/tyk-pump/pump.conf"]
+        command: ["/opt/tyk-pump/tyk-pump", "-c", "/etc/tyk-pump/pump.conf"]
         volumeMounts:
           - name: tyk-pump-conf
             mountPath: /etc/tyk-pump
